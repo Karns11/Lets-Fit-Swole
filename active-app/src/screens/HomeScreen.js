@@ -149,11 +149,11 @@ const HomeScreen = () => {
             </figcaption>
           </figure>
         </Col>
-        <Col className="text-end col-md-6 d-md-block d-none">Test</Col>
+        <Col className="text-end col-md-6 d-md-block d-none">{""}</Col>
       </Row>
 
       <Row className="mt-5">
-        <Col className="text-start col-md-6 d-md-block d-none">Test</Col>
+        <Col className="text-start col-md-6 d-md-block d-none">{""}</Col>
         <Col md={6}>
           <figure class="text-end">
             <blockquote class="blockquote">
@@ -183,7 +183,7 @@ const HomeScreen = () => {
             </figcaption>
           </figure>
         </Col>
-        <Col className="text-end col-md-6 d-md-block d-none">Test</Col>
+        <Col className="text-end col-md-6 d-md-block d-none">{""}</Col>
       </Row>
 
       {/* MODALS */}

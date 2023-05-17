@@ -85,7 +85,12 @@ const MainScreen = () => {
       {error && <Message variant="danger">{error}</Message>}
       <Row>
         <Col md={6}>
-          <Card className="my-2">
+          <Card
+            style={{
+              boxShadow: "0px 0px 8px black",
+            }}
+            className="bg-light my-2"
+          >
             <Card.Body>
               <Card.Title>Your Height</Card.Title>
               <Card.Subtitle>
@@ -99,7 +104,12 @@ const MainScreen = () => {
           </Card>
         </Col>
         <Col md={6}>
-          <Card className="my-2">
+          <Card
+            style={{
+              boxShadow: "0px 0px 8px black",
+            }}
+            className="bg-light my-2"
+          >
             <Card.Body>
               <Card.Title>Your Weight</Card.Title>
               <Card.Subtitle>
@@ -115,7 +125,12 @@ const MainScreen = () => {
       </Row>
       <Row>
         <Col>
-          <Card className="mt-2 mb-5">
+          <Card
+            style={{
+              boxShadow: "0px 0px 8px black",
+            }}
+            className="bg-warning mt-2 mb-5"
+          >
             <Card.Body>
               <Card.Title className="text-center">
                 Workout of the day
@@ -137,7 +152,15 @@ const MainScreen = () => {
       <Row>
         <Col>
           <h2 className="mb-3">Get your collection started!</h2>
-          <Form onSubmit={workoutSubmitHandler}>
+          <Form
+            style={{
+              border: "2px solid black",
+              padding: "1rem",
+              borderRadius: "2%",
+              boxShadow: "0px 0px 8px black",
+            }}
+            onSubmit={workoutSubmitHandler}
+          >
             <Row className="mb-3">
               <Col xs={8}>
                 <Form.Control
@@ -250,7 +273,7 @@ const MainScreen = () => {
                   )}
                   {filteredWorkouts.map((workout) => (
                     <Col md={4} key={workout._id}>
-                      <Card className="mt-2" id={workout._id}>
+                      <Card className="bg-dark mt-2" id={workout._id}>
                         <Link
                           to={`/users/workout/${workout._id}`}
                           style={{ textDecoration: "none" }}

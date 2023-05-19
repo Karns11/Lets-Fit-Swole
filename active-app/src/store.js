@@ -11,6 +11,7 @@ import {
   getWorkoutsOfDayReducer,
   getWorkoutReducer,
   deleteWorkoutReducer,
+  updateWorkoutReducer,
 } from "./reducers/userReducers";
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -28,6 +29,7 @@ const store = configureStore({
     getWorkoutsOfDay: getWorkoutsOfDayReducer,
     getWorkout: getWorkoutReducer,
     deleteWorkout: deleteWorkoutReducer,
+    updateWorkout: updateWorkoutReducer,
   },
   preloadedState: {
     userLogin: { userInfo: userInfoFromStorage },

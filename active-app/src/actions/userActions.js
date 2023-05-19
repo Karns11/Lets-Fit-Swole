@@ -30,6 +30,12 @@ import {
   USER_DELETE_WORKOUT_REQUEST,
   USER_DELETE_WORKOUT_SUCCESS,
   USER_DELETE_WORKOUT_FAIL,
+  USER_UPDATE_WORKOUT_REQUEST,
+  USER_UPDATE_WORKOUT_SUCCESS,
+  USER_UPDATE_WORKOUT_FAIL,
+  USER_ADD_EXERCISE_REQUEST,
+  USER_ADD_EXERCISE_SUCCESS,
+  USER_ADD_EXERCISE_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -382,6 +388,80 @@ export const deleteWorkout = (workoutId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_WORKOUT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const UpdateWorkout = (workout, id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_WORKOUT_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`/api/users/workout/${id}`, workout, config);
+
+    dispatch({
+      type: USER_UPDATE_WORKOUT_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_WORKOUT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const addExercise = (exercise, id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_ADD_EXERCISE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const exerciseObject = {
+      exercise: exercise,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.patch(
+      `/api/users/workout/${id}/exercises`,
+      exerciseObject,
+      config
+    );
+
+    dispatch({
+      type: USER_ADD_EXERCISE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_ADD_EXERCISE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

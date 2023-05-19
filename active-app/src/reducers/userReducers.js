@@ -24,6 +24,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_WORKOUT_FAIL,
+  USER_UPDATE_WORKOUT_REQUEST,
+  USER_UPDATE_WORKOUT_SUCCESS,
   USER_WORKOUT_OF_DAY_FAIL,
   USER_WORKOUT_OF_DAY_REQUEST,
   USER_WORKOUT_OF_DAY_SUCCESS,
@@ -180,6 +183,26 @@ const deleteWorkoutReducer = (state = {}, action) => {
   }
 };
 
+const updateWorkoutReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_WORKOUT_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_WORKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+      };
+    case USER_UPDATE_WORKOUT_FAIL:
+      return {
+        error: action.payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
 export {
   userLoginReducer,
   userRegisterReducer,
@@ -190,4 +213,5 @@ export {
   getWorkoutsOfDayReducer,
   getWorkoutReducer,
   deleteWorkoutReducer,
+  updateWorkoutReducer,
 };

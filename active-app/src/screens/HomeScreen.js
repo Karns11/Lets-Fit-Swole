@@ -138,13 +138,13 @@ const HomeScreen = () => {
       <Row className="mt-5">
         <Col md={6}>
           <figure>
-            <blockquote class="blockquote">
-              <p class="mb-0">
+            <blockquote className="blockquote">
+              <p className="mb-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 posuere erat a ante.
               </p>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            <figcaption className="blockquote-footer">
               Someone famous in <cite title="Source Title">Source Title</cite>
             </figcaption>
           </figure>
@@ -155,14 +155,14 @@ const HomeScreen = () => {
       <Row className="mt-5">
         <Col className="text-start col-md-6 d-md-block d-none">{""}</Col>
         <Col md={6}>
-          <figure class="text-end">
-            <blockquote class="blockquote">
-              <p class="mb-0">
+          <figure className="text-end">
+            <blockquote className="blockquote">
+              <p className="mb-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 posuere erat a ante.
               </p>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            <figcaption className="blockquote-footer">
               Someone famous in <cite title="Source Title">Source Title</cite>
             </figcaption>
           </figure>
@@ -172,13 +172,13 @@ const HomeScreen = () => {
       <Row className="mt-5">
         <Col md={6}>
           <figure>
-            <blockquote class="blockquote">
-              <p class="mb-0">
+            <blockquote className="blockquote">
+              <p className="mb-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 posuere erat a ante.
               </p>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            <figcaption className="blockquote-footer">
               Someone famous in <cite title="Source Title">Source Title</cite>
             </figcaption>
           </figure>

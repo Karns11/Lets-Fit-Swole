@@ -59,12 +59,12 @@ const MainScreen = () => {
     setSelectedDay(e.target.value);
   };
 
-  const randomIndex =
-    getWorkoutsOfDay.workoutsOfDay &&
-    Math.floor(Math.random() * getWorkoutsOfDay.workoutsOfDay.length);
-  const randomWorkout =
-    getWorkoutsOfDay.workoutsOfDay &&
-    getWorkoutsOfDay.workoutsOfDay[randomIndex];
+  // const randomIndex =
+  //   getWorkoutsOfDay.workoutsOfDay &&
+  //   Math.floor(Math.random() * getWorkoutsOfDay.workoutsOfDay.length);
+  // const randomWorkout =
+  //   getWorkoutsOfDay.workoutsOfDay &&
+  //   getWorkoutsOfDay.workoutsOfDay[randomIndex];
 
   const daysOfWeek = [
     "monday",
@@ -89,7 +89,7 @@ const MainScreen = () => {
             style={{
               boxShadow: "0px 0px 8px black",
             }}
-            className="bg-light my-2"
+            className="my-2"
           >
             <Card.Body>
               <Card.Title>Your Height</Card.Title>
@@ -108,7 +108,7 @@ const MainScreen = () => {
             style={{
               boxShadow: "0px 0px 8px black",
             }}
-            className="bg-light my-2"
+            className="my-2"
           >
             <Card.Body>
               <Card.Title>Your Weight</Card.Title>
@@ -125,42 +125,34 @@ const MainScreen = () => {
       </Row>
       <Row>
         <Col>
-          <Card
-            style={{
-              boxShadow: "0px 0px 8px black",
-            }}
-            className="bg-warning mt-2 mb-5"
-          >
-            <Card.Body>
-              <Card.Title className="text-center">
-                Workout of the day
-              </Card.Title>
-              <Card.Subtitle>
-                {getWorkoutsOfDay.workoutsOfDay && (
-                  <h1 className="text-center">{randomWorkout.name}</h1>
-                )}
-              </Card.Subtitle>
-              <Card.Text className="text-center">
-                {getWorkoutsOfDay.workoutsOfDay && (
-                  <p className="text-center">{randomWorkout.instructions}</p>
-                )}
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          {getWorkoutsOfDay.workoutsOfDay && (
+            <Card
+              style={{
+                boxShadow: "0px 0px 8px black",
+              }}
+              className="mt-2 mb-5"
+            >
+              <Card.Body>
+                <Card.Title className=" text-center">
+                  Workout of the day
+                </Card.Title>
+                <Card.Subtitle>
+                  <h1 className="text-center ">
+                    {getWorkoutsOfDay.workoutsOfDay[1].name}
+                  </h1>
+                </Card.Subtitle>
+                <Card.Text className="text-center">
+                  {getWorkoutsOfDay.workoutsOfDay[1].instructions}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          )}
         </Col>
       </Row>
       <Row>
         <Col>
           <h2 className="mb-3">Get your collection started!</h2>
-          <Form
-            style={{
-              border: "2px solid black",
-              padding: "1rem",
-              borderRadius: "2%",
-              boxShadow: "0px 0px 8px black",
-            }}
-            onSubmit={workoutSubmitHandler}
-          >
+          <Form onSubmit={workoutSubmitHandler}>
             <Row className="mb-3">
               <Col xs={8}>
                 <Form.Control
@@ -203,10 +195,11 @@ const MainScreen = () => {
         </Col>
       </Row>
       <Row>
-        <h2 className="text-center mt-4">Your Collection</h2>
-        {loadingWorkouts && <Loader></Loader>}
-        {errorWorkouts && <Message variant="danger">{errorWorkouts}</Message>}
-        {/* {workouts &&
+        <Card className="p-2 mt-2" style={{ boxShadow: "0px 0px 8px black" }}>
+          <h2 className="text-center mt-1">Your Collection</h2>
+          {loadingWorkouts && <Loader></Loader>}
+          {errorWorkouts && <Message variant="danger">{errorWorkouts}</Message>}
+          {/* {workouts &&
           workouts.workouts &&
           workouts.workouts
             .sort((a, b) => {
@@ -257,59 +250,79 @@ const MainScreen = () => {
               </Col>
             ))} */}
 
-        {workouts && workouts.workouts && (
-          <>
-            {daysOfWeek.map((day) => {
-              const filteredWorkouts = workouts.workouts.filter(
-                (workout) => workout.day.toLowerCase() === day.toLowerCase()
-              );
+          {workouts && workouts.workouts && (
+            <>
+              {daysOfWeek.map((day) => {
+                const filteredWorkouts = workouts.workouts.filter(
+                  (workout) => workout.day.toLowerCase() === day.toLowerCase()
+                );
 
-              return (
-                <Row key={day}>
-                  {filteredWorkouts.length > 0 && (
-                    <h2 className="text-dark mt-2">
-                      {day.charAt(0).toUpperCase() + day.slice(1)}
-                    </h2>
-                  )}
-                  {filteredWorkouts.map((workout) => (
-                    <Col md={4} key={workout._id}>
-                      <Card className="bg-dark mt-2" id={workout._id}>
-                        <Link
-                          to={`/users/workout/${workout._id}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <Card.Body>
-                            <Card.Title>
-                              <h2>
-                                {workout.name.charAt(0).toUpperCase() +
-                                  workout.name.slice(1)}
-                              </h2>
-                            </Card.Title>
-                            <Card.Subtitle>
-                              <h6>
-                                <i className="fa-solid fa-calendar-days"></i>{" "}
-                                {workout.day.charAt(0).toUpperCase() +
-                                  workout.day.slice(1)}
-                              </h6>
-                            </Card.Subtitle>
-                            <Card.Text>
-                              Click to view or customize your workout
-                            </Card.Text>
-                          </Card.Body>
-                        </Link>
-                        <Button
-                          onClick={() => deleteWorkoutHandler(workout._id)}
-                        >
-                          <i className="fa-solid fa-trash"></i> Delete
-                        </Button>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-              );
-            })}
-          </>
-        )}
+                return (
+                  <Row key={day}>
+                    {filteredWorkouts.length > 0 && (
+                      <h2 className="text-dark mt-2">
+                        {day.charAt(0).toUpperCase() + day.slice(1)}
+                      </h2>
+                    )}
+                    {filteredWorkouts.map((workout) => (
+                      <Col md={4} key={workout._id}>
+                        <Card className="bg-dark mt-2" id={workout._id}>
+                          <Link
+                            to={`/users/workout/${workout._id}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Card.Body>
+                              <Card.Title>
+                                <h2>
+                                  {workout.name.charAt(0).toUpperCase() +
+                                    workout.name.slice(1)}
+                                </h2>
+                              </Card.Title>
+                              <Card.Subtitle>
+                                <h6>
+                                  <i className="fa-solid fa-calendar-days"></i>{" "}
+                                  {workout.day.charAt(0).toUpperCase() +
+                                    workout.day.slice(1)}
+                                </h6>
+                              </Card.Subtitle>
+                              <Card.Text>
+                                <Row>
+                                  <Col>
+                                    <p>
+                                      {workout.exercises.map(
+                                        (singleExercise, index) => (
+                                          <span key={index}>
+                                            {singleExercise}
+                                            {index !==
+                                            workout.exercises.length - 1
+                                              ? ", "
+                                              : ""}
+                                          </span>
+                                        )
+                                      )}
+                                      {workout.exercises.join(", ").length > 25
+                                        ? "..."
+                                        : ""}
+                                    </p>
+                                  </Col>
+                                </Row>
+                              </Card.Text>
+                            </Card.Body>
+                          </Link>
+                          <Button
+                            onClick={() => deleteWorkoutHandler(workout._id)}
+                          >
+                            <i className="fa-solid fa-trash"></i> Delete
+                          </Button>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                );
+              })}
+            </>
+          )}
+        </Card>
       </Row>
     </>
   );

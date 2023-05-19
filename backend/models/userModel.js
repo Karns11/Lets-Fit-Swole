@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 const workoutSchema = mongoose.Schema({
   name: String,
   day: String,
+  exercises: [String],
 });
 
 const userSchema = mongoose.Schema(

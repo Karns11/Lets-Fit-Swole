@@ -94,6 +94,7 @@ const addWorkout = asyncHandler(async (req, res) => {
         _id: new ObjectId(),
         name: workout.name,
         day: workout.day,
+        exercises: workout.exercises,
       };
     });
 
@@ -113,7 +114,7 @@ const addWorkout = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Get workouta
+// @desc Get workouts
 // @route GET /api/users/workouts
 // @access Private
 const getWorkouts = asyncHandler(async (req, res) => {
@@ -221,6 +222,75 @@ const deleteWorkout = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Update workout
+// @route PUT /api/users/workout/:id
+// @access Private
+const updateWorkout = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const workoutId = req.params.id;
+    const { name, day, exercise } = req.body;
+
+    const user = await User.findOneAndUpdate(
+      { _id: userId, "workouts._id": workoutId },
+      {
+        $set: {
+          "workouts.$.name": name,
+          "workouts.$.day": day,
+          "workouts.$.exercise": exercise,
+        },
+      },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User or workout not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Workout updated successfully", user });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
+const addExercise = asyncHandler(async (req, res) => {
+  try {
+    const workoutId = req.params.id;
+    const { exercise } = req.body;
+
+    const user = await User.findById(req.user._id); // Correct the typo in "findById"
+
+    if (!user) {
+      res.status(400);
+      throw new Error("Invalid user data");
+    }
+
+    const workout = user.workouts.find(
+      (workout) => workout._id.toString() === workoutId
+    );
+
+    if (!workout) {
+      res.status(404);
+      throw new Error("Workout not found");
+    }
+
+    workout.exercises.push(exercise);
+
+    await user.save();
+
+    res.status(200).json({
+      name: user.name,
+      email: user.email,
+      height: user.height,
+      weight: user.weight,
+      workouts: user.workouts,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
 export {
   authUser,
   getUserMainPage,
@@ -231,4 +301,6 @@ export {
   updateUserProfile,
   getWorkoutById,
   deleteWorkout,
+  updateWorkout,
+  addExercise,
 };
